@@ -1,0 +1,133 @@
+/* -------------------------------------------------------------------------- */
+
+.galk {
+	--cl-highlight-softer : hsla(237, 25%, 65%, 0.32);
+	--cl-highlight-soft : hsla(237, 25%, 65%, 0.28);
+	--cl-highlight-medium : hsla(236.8, 9.8%, 62.2%, 65%);
+	--cl-panel-bg : var(--grey-3);
+	--cl-panel-bg-medium : hsl(237, 12%, 38%);
+	--cl-text-soft : var(--tag-count-color);
+}
+
+/* --- unset danbooru's default element styles --- */
+
+header {
+	margin : unset;
+}
+
+/* --- ? --- */
+
+.galk-propertySheet-booru + #tag-list,
+#post-info-source,
+#post-info-rating {
+	display : none; /* elements superseded by property sheet */
+}
+
+fieldset.galk-propertySheetDeck-booru {
+	width : 100%;
+}
+
+.galk-propertySheetDeck-booru > [role='tabpanel'] {
+	max-width : stretch;
+	max-width : -moz-available;
+	max-width : -webkit-fill-available;
+}
+
+.galk-propertySheet .galk-propList > li:focus-within {
+	background-color : var(--grey-2);
+}
+
+.galk-propertySheet-booru .galk-propList
+	> li[data-category=''][data-post-count='0']
+	> .galk-propContent .galk-propSideLabel,
+.galk-propertySheet-booru .galk-propList
+	> li[data-category=''][data-post-count='1']
+	> .galk-propContent .galk-propSideLabel,
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='general'][data-post-count='0']
+	> .galk-propContent .galk-propSideLabel,
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='general'][data-post-count='1']
+	> .galk-propContent .galk-propSideLabel
+{
+	/* https://github.com/danbooru/danbooru/blob/bdebd1a5943da07026c84002db59c3184a458a86/app/presenters/tag_set_presenter.rb#L140 */
+	color : var(--low-post-count-color);
+}
+
+.galk * {
+	line-height : inherit;
+}
+
+.galk-propertySheet-booru .galk-sidePanel {
+	z-index : 999; /* matches rule for div.ui-dialog */
+}
+
+/* -------------------------------------------------------------------------- */
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+/* -------------------------------------------------------------------------- */

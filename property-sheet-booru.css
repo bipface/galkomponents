@@ -1,0 +1,783 @@
+/* -------------------------------------------------------------------------- */
+
+.galk-propertySheet-booru {
+	--sz-sidepanel-w : 30ch;
+	--sz-sidepanel-upper-h : calc(11 /* +1 for buttons */ * var(--sz-item-h)
+		+ 2 * var(--sz-adj-space-narrow) /* padding */);
+
+	--cl-copyright-tag : hsl(264.7, 72%, 73.5%);
+	--cl-copyright-tag-highlight : hsl(262.9, 70.8%, 81.2%);
+	--cl-character-tag : hsl(137, 43.5%, 48.6%);
+	--cl-character-tag-highlight : hsl(137.3, 57.1%, 57.1%);
+	--cl-artist-tag : hsl(0, 80%, 71%);
+	--cl-artist-tag-highlight : hsl(0, 76.7%, 79.8%);
+	--cl-species-tag : hsl(180, 65%, 50%);
+	--cl-species-tag-highlight : hsl(180, 65%, 70%);
+	--cl-meta-tag : hsl(44, 75.7%, 63%);
+	--cl-meta-tag-highlight : hsl(41, 89.1%, 82%);
+	--cl-general-tag : var(--cl-link);
+	--cl-general-tag-highlight : var(--cl-link-highlight);
+
+	--opacity-text-inactive : 0.7;
+}
+
+/* --- --- */
+
+fieldset.galk-propertySheet-booru {
+	position : relative; /* temp */
+}
+
+.galk-propertySheet-booru .galk-propContent {
+	display : flex;
+	flex-direction : row;
+	align-items : stretch;
+}
+
+.galk-propertySheet-booru .galk-propCtrls {
+	margin-right : var(--sz-adj-space-narrow);
+}
+
+.galk-propertySheet-booru .galk-propLabel {
+	margin-right : var(--sz-adj-space-wide);
+}
+
+.galk-propertySheet-booru .galk-propCtrls {
+	display : flex;
+	flex-direction : row;
+	align-items : stretch;
+}
+
+.galk-propertySheet-booru .galk-propCtrls > .galk-btn > .galk-btnLabel {
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-optionBtns .galk-btnIcon {
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-optionBtns .galk-btnLabel {
+	width : 7mm;
+}
+
+.galk-propertySheet-booru.galk-editing .galk-propCtrls .galk-editBtn {
+	display : none;
+}
+
+.galk-propertySheet-booru:not(.galk-editing) .galk-propCtrls .galk-deleteBtn {
+	display : none;
+}
+
+.galk-propertySheet-booru
+	> fieldset:not([data-kinds~=':'/* tag */]) .galk-addPropInput
+{
+	/* only show the 'add' textbox in the tags section
+	(see comments in onAddPropIntent) */
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-propList
+	> li[data-status='deleted'] > .galk-propContent .galk-propLabelFormatted
+{
+	text-decoration-line : line-through;
+}
+
+.galk-propertySheet-booru .galk-tagSeparator {
+	font-size : 1ch; /* in case underscores are wider than spaces */
+	color : transparent;
+}
+
+.galk-propertySheet-booru
+	.galk-propList > li
+	> .galk-propContent .galk-shortValue > .galk-tagSeparator,
+.galk-propertySheet-booru
+	.galk-propList > li[data-value*='__']
+	> .galk-propContent .galk-tagSeparator,
+.galk-propertySheet-booru
+	.galk-propList > li[data-value^='_']
+	> .galk-propContent .galk-tagSeparator,
+.galk-propertySheet-booru
+	.galk-propList > li[data-value$='_']
+	> .galk-propContent .galk-tagSeparator,
+.galk-propertySheet-booru
+	.galk-propList > li/*
+		*/:not([data-value*='a']):not([data-value*='b'])/*
+		*/:not([data-value*='c']):not([data-value*='d'])/*
+		*/:not([data-value*='e']):not([data-value*='f'])/*
+		*/:not([data-value*='g']):not([data-value*='h'])/*
+		*/:not([data-value*='i']):not([data-value*='j'])/*
+		*/:not([data-value*='k']):not([data-value*='l'])/*
+		*/:not([data-value*='m']):not([data-value*='n'])/*
+		*/:not([data-value*='o']):not([data-value*='p'])/*
+		*/:not([data-value*='q']):not([data-value*='r'])/*
+		*/:not([data-value*='s']):not([data-value*='t'])/*
+		*/:not([data-value*='u']):not([data-value*='v'])/*
+		*/:not([data-value*='w']):not([data-value*='x'])/*
+		*/:not([data-value*='y']):not([data-value*='z'])
+	> .galk-propContent .galk-tagSeparator
+{
+	/* show underscores if the value starts or ends with one,
+	contains a double-underscore, contains only numbers/symbols,
+	or is <4 characters in length */
+	color : inherit;
+}
+
+.galk-propertySheet-booru .galk-propLabel > [role='textbox'] {
+	min-width : stretch;
+	min-width : -moz-available;
+	min-width : -webkit-fill-available;
+}
+
+.galk-propertySheet-booru.galk-editing
+	.galk-propList-editable > li:focus-within
+	> .galk-propContent .galk-propLabel
+{
+	display : flex;
+	/* full-row textboxes: */
+	width : stretch;
+	width : -moz-available;
+	width : -webkit-fill-available;
+	margin-right : 0;
+}
+
+.galk-propertySheet-booru:not(.galk-editing) .galk-propLabel,
+.galk-propertySheet-booru
+	.galk-propList > li:not(:focus-within) > .galk-propContent .galk-propLabel
+{
+	overflow-x : hidden;
+	overflow-y : hidden;
+	text-overflow : ellipsis;
+}
+
+.galk-propertySheet-booru.galk-editing
+	.galk-propList-editable > li:focus-within
+	> .galk-propContent .galk-propLabelFormatted,
+.galk-propertySheet-booru.galk-editing
+	.galk-propList-editable > li:focus-within
+	> .galk-propContent .galk-propSideLabel,
+.galk-propertySheet-booru.galk-editing
+	.galk-propList-editable > li:focus-within
+	> .galk-propContent > .galk-loadingBtn
+{
+	display : none;
+}
+
+.galk-propertySheet-booru:not(.galk-editing)
+	.galk-propLabel > [role='textbox'],
+.galk-propertySheet-booru:not(.galk-editing)
+	.galk-propLabel > [role='textbox'] > *,
+.galk-propertySheet-booru .galk-propList > li:not(:focus-within)
+	> .galk-propContent .galk-propLabel > [role='textbox'],
+.galk-propertySheet-booru .galk-propList > li:not(:focus-within)
+	> .galk-propContent .galk-propLabel > [role='textbox'] > *
+{
+	/* hide textbox when property isn't focused or not editable;
+	to ensure the textbox can still receive focus, don't use display:none */
+	min-width : 0;
+	width : 0;
+	min-height : 0;
+	height : 0;
+	overflow : hidden;
+	/* ensure it's not included when copying the property: */
+	user-select : none;
+	-moz-user-select : none;
+	-webkit-user-select : none;
+}
+
+.galk-propertySheet-booru.galk-editing .galk-propList-editable > li
+	> .galk-propContent .galk-propLabelFormatted
+{
+	pointer-events : none;
+}
+
+.galk-propertySheet-booru .galk-propSideLabel {
+	display : contents;
+	color : var(--cl-text-soft);
+	font-size : var(--sz-minor-font);
+}
+
+.galk-propertySheet-booru
+	.galk-propList > li[aria-busy='true']
+	> .galk-propContent .galk-propSideLabel
+{
+	/* hide side-label when loading button is visible: */
+	display : none;
+}
+
+.galk-propertySheet-booru
+	.galk-propContent > .galk-loadingBtn > .galk-btnLabel
+{
+	/* no label for loading button: */
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-propList > li:not([aria-busy='true'])
+	> .galk-propContent > .galk-loadingBtn
+{
+	/* hide loading button when not loading: */
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-propList > li[data-kind='source']
+	> .galk-propContent .galk-propLabelFormatted:any-link
+{
+	color : var(--cl-link);
+}
+
+.galk-propertySheet-booru .galk-propList > li[data-kind='source']
+	> .galk-propContent .galk-propLabelFormatted:any-link:hover
+{
+	color : var(--cl-link-highlight);
+}
+
+.galk-propertySheet-booru .galk-propList > li[data-value='']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	/* 'none' placeholder text */
+	color : var(--cl-text-soft);
+	font-size : var(--sz-minor-font);
+}
+
+.galk-propertySheet-booru .galk-propLabelHiddenAffix {
+	font-size : 0;
+}
+
+.galk-propertySheet-booru .galk-propSideLabel {
+	user-select : none;
+	-moz-user-select : none;
+	-webkit-user-select : none;
+}
+
+/* workaround for firefox bug when `user-select : none` */
+.galk-propertySheet-booru .galk-propSideLabel::-moz-selection {
+	background-color : transparent;
+}
+.galk-propertySheet-booru .galk-propSideLabel::selection {
+	background-color : transparent;
+}
+.galk-propertySheet-booru .galk-propSideLabel {
+	cursor : default;
+}
+
+/* --- sheet/section headings --- */
+
+.galk-propertySheet-booru > header > .galk-headerTitle,
+.galk-propertySheet-booru > fieldset > legend .galk-sectionTitle {
+	/* hide default titles */
+	display : none;
+	/* instead, titles are displayed in the button groups */
+}
+
+.galk-propertySheet-booru > header > .galk-btnGroup,
+.galk-propertySheet-booru > fieldset > legend
+	> .galk-legendContent > .galk-btnGroup
+{
+	display : flex;
+}
+
+.galk-propertySheet-booru > header
+	> .galk-btnGroup > .galk-btn:not(.galk-moreBtn) > .galk-btnLabel,
+.galk-propertySheet-booru > fieldset > legend > .galk-legendContent
+	> .galk-btnGroup > .galk-btn:not(.galk-moreBtn) > .galk-btnLabel
+{
+	/* only show labels on the 'more…' buttons */
+	display : none;
+}
+
+.galk-propertySheet-booru > header
+	> .galk-btnGroup > .galk-moreBtn > .galk-btnLabel,
+.galk-propertySheet-booru > fieldset > legend > .galk-legendContent
+	> .galk-btnGroup > .galk-moreBtn > .galk-btnLabel
+{
+	/* inherit <heading>/<legend> font properties: */
+	font-family : inherit;
+	font-size : inherit;
+	text-transform : inherit;
+
+	/* place label to the left of the icon: */
+	order : -1;
+}
+
+.galk-propertySheet-booru > header > .galk-btnGroup
+	> .galk-moreBtn:not(:active):not(:hover):not(:focus) > .galk-btnLabel,
+.galk-propertySheet-booru > fieldset > legend > .galk-legendContent
+	> .galk-btnGroup > .galk-moreBtn:not(:active):not(:hover):not(:focus)
+	> .galk-btnLabel
+{
+	background-color : inherit;
+}
+
+/* --- settings section --- */
+
+.galk-propertySheet-booru .galk-propList
+	> li[data-kind]:not([data-kind='']):not([data-kind='source'])::before
+{
+	content : attr(data-kind) ':';
+	float : left;
+	display : flex;
+	align-items : center;
+	justify-content : end;
+	margin-right : var(--sz-adj-space-wide);
+	width : 12ch;
+	font-size : var(--sz-minor-font);
+}
+
+.galk-propertySheet-booru .galk-propList > li[data-kind='parent']::before {
+	content : 'Parent:' !important;
+}
+
+.galk-propertySheet-booru .galk-propList > li[data-kind='rating']::before {
+	content : 'Rating:' !important;
+}
+
+.galk-propertySheet-booru .galk-propList > li[data-kind='embedded']::before {
+	content : 'Embed notes:' !important;
+}
+
+/* --- sidepanel --- */
+
+.galk-propertySheet-booru .galk-sidePanel {
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	position : absolute;
+	z-index : 1;
+	top : 50%;
+	/*right : calc(100% + var(--sz-edgecolour)); // for when the sidebar is on the right */
+	left : calc(100% + 1em);
+
+	--width-mul : 1;
+	width : calc(var(--sz-sidepanel-w) * var(--width-mul));
+	height : 0;
+
+	/* todo: fix; having the outline at this level doesn't work in chrome: */
+	outline-style : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel:not([open]) {
+	display : none;
+}
+
+.galk-propertySheet-booru:not(:focus-within) .galk-sidePanel {
+	display : none; /* hide side-panel when property-sheet isn't focused */
+}
+
+.galk-propertySheet-booru:not(.galk-editing) .galk-sidePanel {
+	/*display : none;*/
+	/* todo: needs to be visible when typing into addtagtextbox */
+}
+
+.galk-propertySheet-booru > .galk-sidePanel {
+	top : calc(var(--sz-sidepanel-upper-h) / 2);
+}
+
+.galk-propertySheet-booru .galk-sidePanel-upper {
+	min-height : var(--sz-sidepanel-upper-h);
+}
+
+.galk-propertySheet-booru .galk-sidePanel-subPanel {
+	max-width: stretch;
+	max-width: -moz-available;
+	max-width: -webkit-fill-available;
+	background-color : var(--cl-panel-bg);
+}
+
+.galk-propertySheet-booru .galk-sidePanel-upper > .galk-btnGroup,
+.galk-propertySheet-booru .galk-sidePanel summary {
+	background-color : var(--cl-panel-bg-medium);
+}
+
+.galk-propertySheet-booru .galk-sidePanel-upper > .galk-btnGroup,
+.galk-propertySheet-booru .galk-sidePanel summary > .galk-btn {
+	display : flex;
+	width : stretch;
+	width : -moz-available;
+	width : -webkit-fill-available;
+}
+
+.galk-propertySheet-booru .galk-panel-summary:not([data-value]) {
+	/* summary panel isn't <details> so can't use [open] */
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-upper > .galk-btnGroup > .galk-btn {
+	/* equal sizes: */
+	flex-basis : 0;
+	flex-grow : 1;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-upper > :not(.galk-btnGroup) {
+	height : calc(100% - var(--sz-item-h)); /* space for close/hide buttons */
+	max-height : 100%;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-lower {
+	display : flex;
+	flex-wrap : wrap;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-lower > details {
+	flex-grow : 1; /* make collapsed <details> fill empty space */
+	flex-basis : 0;  /* equal sizes */
+	min-width : calc(var(--sz-sidepanel-w) / 3); /* 3 buttons per row */
+}
+
+.galk-propertySheet-booru .galk-sidePanel-lower > details[open] {
+	order : 1;
+
+	width : stretch;
+	width : -moz-available;
+	width : -webkit-fill-available;
+
+	/* span full width: */
+
+	/* fallback for chrome, which doesn't seem
+	to support any of the following */
+	flex-basis : unset;
+
+	flex-basis : stretch;
+	flex-basis : -moz-available;
+	flex-basis : -webkit-fill-available;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-lower {
+	height : 0;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list {
+	display : flex;
+	flex-direction : column;
+	padding-top : var(--sz-adj-space-narrow);
+	padding-bottom : var(--sz-adj-space-narrow);
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent {
+	display : flex;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li .galk-propLabel {
+	flex-grow : 1;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	.galk-propSideLabel
+{
+	display : flex;
+	align-items : center;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	> .galk-propLabel.galk-btn:focus > :not(.galk-menu),
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	> .galk-propLabel.galk-btn:hover > :not(.galk-menu),
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	> .galk-propLabel.galk-btn[aria-selected='true'] > :not(.galk-menu)
+{
+	/* button has user's attention */
+	background-color : var(--cl-highlight-soft) !important;
+	/* not sure why this rule sometimes has no effect without !important */
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	> .galk-propLabel.galk-btn:active > :not(.galk-menu)
+{
+	/* button is active */
+	color : var(--cl-text-inverse);
+	background-color : var(--cl-highlight-strong);
+	background-blend-mode : unset;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	> .galk-propLabel.galk-btn:active:focus > :not(.galk-menu),
+.galk-propertySheet-booru .galk-sidePanel-list > li > .galk-propContent
+	> .galk-propLabel.galk-btn:active:hover > :not(.galk-menu)
+{
+	/* button is active and has user's attention */
+	background-color : var(--cl-highlight-stronger);
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li .galk-propLabel > * {
+	overflow : hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+}
+
+.galk-propertySheet-booru
+	.galk-sidePanel-list > li .galk-propLabel > :first-child
+{
+	flex-grow : 1;
+}
+
+.galk-propertySheet-booru
+	.galk-sidePanel-list > li .galk-propLabel > .galk-propLabelFormatted
+{
+	/* need selection enabled for the 'copy' button to work: */
+	user-select : unset;
+	-moz-user-select : unset;
+}
+
+.galk-propertySheet-booru
+	.galk-sidePanel-list > li .galk-propLabel > :not(:first-child)
+{
+	flex-grow : 0;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li:not([data-antecedent])
+	> .galk-propContent .galk-propAntcdtLabel
+{
+	/* hide antecedent label when tag has no antecedent */
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li:focus-within {
+	background-color : unset !important;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list > li[data-status=''] {
+	/* mark props which are already present in the property sheet */
+	border-left-color : var(--cl-highlight-strong);
+}
+
+.galk-propertySheet-booru .galk-menu-autocmpl > summary {
+	/* hide header row: */
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-subPanel[aria-busy='true']
+	> .galk-sidePanel-content
+{
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-subPanel:not([aria-busy='true'])
+	> .galk-loadingBtn
+{
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-info {
+	display : flex;
+	flex-direction : column;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-infoContent {
+	display : block;
+	white-space : pre-wrap;
+	overflow-y : auto;
+	padding-left : var(--sz-adj-space-wide);
+	padding-right : var(--sz-adj-space-wide);
+}
+
+.galk-propertySheet-booru .galk-panel-source:not([data-value]) {
+	display : none;
+}
+
+.galk-propertySheet-booru .galk-sidePanel-list:empty::before {
+	content : '(No results)';
+	display : block;
+	color : var(--cl-text-soft);
+	padding : var(--sz-adj-space-narrow);
+	padding-left : calc(var(--sz-edgecolour) + var(--sz-adj-space-wide));
+}
+
+.galk-propertySheet-booru .galk-sidePanel-infoContent:empty::before {
+	content : '(Unavailable)';
+	color : var(--cl-text-soft);
+}
+
+/* --- tag categories --- */
+
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='copyright']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	color : var(--cl-copyright-tag);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='copyright']
+	> .galk-propContent .galk-propLabelFormatted:hover
+{
+	color : var(--cl-copyright-tag-highlight);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='character']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	color : var(--cl-character-tag);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='character']
+	> .galk-propContent .galk-propLabelFormatted:hover
+{
+	color : var(--cl-character-tag-highlight);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='artist']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	color : var(--cl-artist-tag);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='artist']
+	> .galk-propContent .galk-propLabelFormatted:hover
+{
+	color : var(--cl-artist-tag-highlight);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='species']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	color : var(--cl-species-tag);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='species']
+	> .galk-propContent .galk-propLabelFormatted:hover
+{
+	color : var(--cl-species-tag-highlight);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='meta']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	color : var(--cl-meta-tag);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='meta']
+	> .galk-propContent .galk-propLabelFormatted:hover
+{
+	color : var(--cl-meta-tag-highlight);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='general']
+	> .galk-propContent .galk-propLabelFormatted
+{
+	color : var(--cl-general-tag);
+}
+.galk-propertySheet-booru .galk-propList
+	> li[data-category='general']
+	> .galk-propContent .galk-propLabelFormatted:hover
+{
+	color : var(--cl-general-tag-highlight);
+}
+
+.galk-propertySheet-booru:not(.galk-editing)
+	.galk-propList-categrouped > li::before
+{
+	display : block;
+	margin-bottom : var(--sz-adj-space-narrow);
+	margin-left : var(--sz-adj-space-narrow);
+
+	content : attr(data-category);
+	font-family : var(--ff-heading);
+	font-weight : var(--wt-heading-font);
+	font-size : var(--sz-subheading-font);
+	text-transform : capitalize;
+}
+
+.galk-propertySheet-booru:not(.galk-editing)
+	.galk-propList-categrouped > li[data-category='']::before
+{
+	content : 'unknown';
+}
+
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category='copyright'] {order : -4;}
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category='character'] {order : -3;}
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category='artist'] {order : -2;}
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category='species'] {order : -1;}
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category='general'] {order : 0;}
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category='meta'] {order : 1;}
+.galk-propertySheet-booru:not(.galk-editing) .galk-propList-categrouped
+	> li[data-category=''] {order : 2;}
+
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category='copyright'] ~ li[data-category='copyright']::before,
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category='character'] ~ li[data-category='character']::before,
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category='artist'] ~ li[data-category='artist']::before,
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category='species'] ~ li[data-category='species']::before,
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category='meta'] ~ li[data-category='meta']::before,
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category='general'] ~ li[data-category='general']::before,
+.galk-propertySheet-booru .galk-propList-categrouped
+	> li[data-category=''] ~ li[data-category='']::before
+{
+	display : none;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+/* -------------------------------------------------------------------------- */

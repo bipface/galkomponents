@@ -1,0 +1,517 @@
+/* -------------------------------------------------------------------------- */
+
+.galk {
+	--sz-item-h : 4.2mm; /* base dimension for elements */
+	--sz-item-w : 5.4mm;
+	--sz-adj-space-narrow : 0.53mm; /* space between adjacent elements */
+	--sz-adj-space-wide : 1mm; /* space between adjacent elements */
+	--sz-adj-space-wider : 2mm;
+	--sz-hairline : 0.2643mm;
+	--sz-btn-label-font : 2.4mm;
+	--sz-minor-font : 90%;
+	--sz-subheading-font : 90%;
+
+	--ff-default : 'verdana', 'dejavu sans', 'tahoma', sans-serif;
+	--ff-heading : 'verdana', 'dejavu sans', 'tahoma', sans-serif;
+	--ff-btn-label : 'helvetica', 'arial', sans-serif;
+	--ff-text-input : 'consolas', 'source code pro', 'noto mono',
+		'dejavu sans mono', monospace;
+
+	--wt-btn-label-font : bold;
+	--wt-heading-font : bold;
+
+	--cl-text-soft : hsla(0, 0%, 100%, 0.45);
+	--cl-text-inverse : hsla(0, 0%, 5%, 1);
+	--cl-link : hsl(208.3, 80.3%, 62.2%);
+	--cl-link-highlight : hsl(212.4, 77.8%, 75.3%);
+	--cl-panel-bg : hsl(240, 5%, 20%);
+	--cl-panel-bg-medium : hsl(240, 4%, 35%);
+	--cl-highlight-softer : hsla(0, 0%, 100%, 0.15);
+	--cl-highlight-soft : hsla(0, 0%, 100%, 0.25);
+	--cl-highlight-medium : hsla(0, 0%, 100%, 0.35);
+	--cl-highlight-strong : hsl(240, 2%, 77%);
+	--cl-highlight-stronger : hsl(240, 2%, 91%);
+
+	--opacity-btn-inactive : 0.8;
+	--opacity-btn-disabled : 0.4;
+}
+
+/* --- unset default element styles --- */
+
+.galk {
+	line-height : 1;
+}
+
+.galk a, .galk a:hover, .galk a:link, .galk a:visited {
+	text-decoration-line : unset;
+	color : inherit;
+	outline : unset;
+}
+
+fieldset.galk, .galk fieldset {
+	display : unset;
+	min-width : unset; /* firefox sets this to -moz-min-content */
+	margin : unset;
+	padding : unset;
+	border : unset;
+}
+
+.galk ul {
+	display : unset;
+	margin : unset;
+	padding : unset;
+}
+
+.galk li {
+	display : unset;
+	list-style-type : unset;
+}
+
+.galk pre {
+	display : unset;
+	margin : unset;
+	font-family : inherit;
+}
+
+.galk div {
+	display : unset;
+}
+
+.galk legend {
+	padding : unset;
+}
+
+.galk dialog {
+	margin : unset;
+	padding : unset;
+	border : unset;
+	position : unset;
+	left : unset;
+	right : unset;
+	top : unset;
+	bottom : unset;
+	color : unset;
+	background-color : unset;
+}
+
+.galk input {
+	margin : unset;
+	border : unset;
+	padding : unset;
+	outline : unset;
+	line-height : inherit;
+	appearance : none;
+	-moz-appearance : none;
+	-webkit-appearance : none;
+}
+
+.galk summary {
+	list-style : none; /* hide the open/close triangle (firefox) */
+}
+.galk ::-webkit-details-marker {
+	display : none; /* hide the open/close triangle (chrome) */
+}
+
+.galk [role='textbox'],
+.galk .galk-btn {
+	outline : unset;
+}
+
+.galk input::-moz-focus-inner {
+	border : none;
+}
+
+/* --- controls - buttons --- */
+
+.galk .galk-btn {
+	display : inline-flex;
+	align-items : stretch;
+	min-width : var(--sz-item-w);
+	min-height : var(--sz-item-h);
+}
+
+.galk .galk-btn > :not(.galk-menu) {
+	cursor : pointer;
+	user-select : none;
+	-moz-user-select : none;
+	-webkit-user-select : none;
+}
+
+.galk .galk-btn > :not(.galk-btnIcon):not(.galk-menu) {
+	flex-grow : 1;
+	padding-right: 1.2mm;
+	padding-left: 1.2mm;
+}
+
+.galk .galk-btnLabel {
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	overflow : hidden; /* block formatting context */
+	padding-top: 0.6mm;
+	padding-bottom: 0.6mm;
+	font-weight : var(--wt-btn-label-font);
+	font-size : var(--sz-btn-label-font);
+	font-family : var(--ff-btn-label);
+	text-align : center;
+	text-transform : uppercase;
+	background-color : var(--cl-highlight-soft);
+}
+
+.galk .galk-btnIcon {
+	display : block;
+	min-width : var(--sz-item-w);
+	background-size : var(--sz-item-h);
+	background-position-x : center;
+	background-position-y : center;
+	background-repeat : no-repeat;
+}
+
+.galk .galk-btn[hidden] {
+	display : none;
+}
+
+.galk .galk-btn/*
+	*/:not(:hover)/*
+	*/:not(:focus-within)/*
+	*/:not(:active)/*
+	*/:not([aria-pressed='true'])
+	> .galk-btnIcon
+{
+	opacity : var(--opacity-btn-inactive);
+}
+.galk input[type='radio']:checked + label > .galk-btn/*
+	*/:not(:hover)/*
+	*/:not(:focus-within)/*
+	*/:not(:active)/*
+	*/:not([aria-pressed='true']) > .galk-btnIcon
+{
+	opacity : unset;
+}
+
+.galk .galk-btn[aria-disabled='true'] {
+	opacity : var(--opacity-btn-disabled);
+	pointer-events : none;
+}
+
+.galk .galk-btn:focus > :not(.galk-menu),
+.galk .galk-btn:hover > :not(.galk-menu) {
+	/* button has user's attention */
+	background-color : var(--cl-highlight-medium);
+}
+
+.galk .galk-btn:active > :not(.galk-menu),
+.galk .galk-btn[aria-pressed='true'] > :not(.galk-menu),
+.galk input[type='radio']:checked + label > .galk-btn > :not(.galk-menu) {
+	/* button is active */
+	color : var(--cl-text-inverse);
+	background-color : var(--cl-highlight-strong);
+	background-blend-mode : exclusion; /* white icons become black */
+}
+
+.galk .galk-btn:active:hover > :not(.galk-menu),
+.galk .galk-btn:active:focus > :not(.galk-menu),
+.galk .galk-btn[aria-pressed='true']:hover > :not(.galk-menu),
+.galk .galk-btn[aria-pressed='true']:focus > :not(.galk-menu),
+.galk input[type='radio']:checked + label > .galk-btn:hover > :not(.galk-menu),
+.galk input[type='radio']:checked + label > .galk-btn:focus > :not(.galk-menu)
+{
+	/* button is active and has user's attention */
+	background-color : var(--cl-highlight-stronger);
+}
+
+.galk .galk-menuBtn {
+	position : relative;
+}
+
+.galk .galk-menuBtn > .galk-menu {
+	position : absolute;
+	display : none;
+	z-index : 3; /* above textboxes */
+	top : calc(100% + var(--sz-adj-space-wide));
+}
+
+.galk .galk-menuBtn[aria-pressed='true'] > .galk-menu {
+	display : flex;
+}
+
+.galk .galk-btnGroup > .galk-menuBtn > .galk-menu {
+	user-select : none;
+	-moz-user-select : none;
+	-webkit-user-select : none;
+}
+
+.galk .galk-btn.galk-btnPulse0 > :not(.galk-menu),
+.galk .galk-btn.galk-btnPulse1 > :not(.galk-menu) {
+	animation-name : galk-btnPulse0;
+	animation-iteration-count : 1;
+	animation-duration : 0.1s;
+	animation-timing-function : linear;
+	animation-fill-mode : forwards;
+}
+
+.galk .galk-btn.galk-btnPulse1 > :not(.galk-menu) {
+	animation-name : galk-btnPulse1;
+}
+
+@keyframes galk-btnPulse0 {
+	from {
+		background-color : var(--cl-highlight-stronger);
+		background-blend-mode : exclusion;
+	}
+	to {}
+}
+
+@keyframes galk-btnPulse1 {
+	from {
+		background-color : var(--cl-highlight-stronger);
+		background-blend-mode : exclusion;
+	}
+	to {}
+}
+
+/* --- controls - menu --- */
+
+.galk .galk-menu {
+	display : flex;
+	flex-direction : column;
+	width : max-content;
+	width : -moz-max-content;
+	outline-style : solid;
+	outline-color : black;
+	outline-width : var(--sz-hairline);
+	box-shadow : 1mm 1mm 3mm black;
+	background-color : var(--cl-panel-bg-medium);
+}
+
+.galk .galk-menu .galk-btnLabel {
+	justify-content : start;
+	background-color : transparent;
+}
+
+/* --- controls - textbox --- */
+
+.galk [role='textbox'] {
+	display : inline-block;
+	min-width : 1ch;
+	min-height : var(--sz-item-h);
+	position : relative; /* appear over other elements if overflowed */
+	z-index : 2; /* above less important elements */
+	color : inherit; /* in case the textbox is an <a> */
+	font-family : var(--ff-text-input);
+}
+
+.galk [role='textbox'] > * {
+	display : inline-block;
+	box-sizing : border-box;
+	min-width : stretch;
+	min-width : -moz-available;
+	min-width : -webkit-fill-available;
+	min-height : 100%;
+	padding : 0 var(--sz-adj-space-narrow);
+	vertical-align : top;
+	border-width : var(--sz-hairline);
+	border-style : solid;
+	border-color : var(--cl-highlight-soft);
+	white-space : pre;
+	/* subtract space for border-width: */
+	font-size : calc(var(--sz-item-h) - 2*var(--sz-hairline));
+}
+
+.galk [role='textbox']:focus-within > * {
+	border-color : var(--cl-highlight-medium);
+}
+
+.galk [role='textbox'] > *:not(:empty) {
+	background-color : var(--cl-panel-bg);
+}
+
+/* --- icons --- */
+
+.galk .galk-btn > .galk-btnIcon {
+	background-image : url('./checkbox-blank.svg'), url('chrome-extension://__MSG_@@extension_id__/checkbox-blank.svg');
+}
+
+.galk .galk-addBtn > .galk-btnIcon {
+	background-image : url('./plus.svg'), url('chrome-extension://__MSG_@@extension_id__/plus.svg');
+}
+
+.galk .galk-saveBtn > .galk-btnIcon {
+	background-image : url('./content-save.svg'), url('chrome-extension://__MSG_@@extension_id__/content-save.svg');
+}
+
+.galk .galk-copyBtn > .galk-btnIcon {
+	background-image : url('./content-copy.svg'), url('chrome-extension://__MSG_@@extension_id__/content-copy.svg');
+}
+
+.galk .galk-configBtn > .galk-btnIcon {
+	background-image : url('./settings.svg'), url('chrome-extension://__MSG_@@extension_id__/settings.svg');
+	background-size : calc(var(--sz-item-h) * 0.85);
+}
+
+.galk .galk-helpBtn > .galk-btnIcon {
+	background-image : url('./help-circle.svg'), url('chrome-extension://__MSG_@@extension_id__/help-circle.svg');
+	background-size : calc(var(--sz-item-h) * 0.85);
+}
+
+.galk .galk-menuBtn > .galk-btnIcon {
+	background-image : url('./dots-horizontal.svg'), url('chrome-extension://__MSG_@@extension_id__/dots-horizontal.svg');
+}
+
+.galk .galk-selectBtn > .galk-btnIcon {
+	background-image : url('./selection.svg'), url('chrome-extension://__MSG_@@extension_id__/selection.svg');
+	background-size : calc(var(--sz-item-h) * 0.8);
+}
+
+.galk .galk-resetBtn > .galk-btnIcon {
+	background-image : url('./undo.svg'), url('chrome-extension://__MSG_@@extension_id__/undo.svg');
+}
+
+.galk .galk-deleteBtn > .galk-btnIcon,
+.galk .galk-closeBtn > .galk-btnIcon {
+	background-image : url('./close.svg'), url('chrome-extension://__MSG_@@extension_id__/close.svg');
+}
+
+.galk .galk-editBtn > .galk-btnIcon {
+	background-image : url('./pencil.svg'), url('chrome-extension://__MSG_@@extension_id__/pencil.svg');
+}
+
+.galk .galk-gotoLinkBtn > .galk-btnIcon {
+	background-image : url('./link.svg'), url('chrome-extension://__MSG_@@extension_id__/link.svg');
+}
+
+.galk .galk-toggleSchBtn > .galk-btnIcon {
+	background-image : url('./magnify.svg'), url('chrome-extension://__MSG_@@extension_id__/magnify.svg');
+}
+
+.galk [data-search-op=''] .galk-toggleSchBtn > .galk-btnIcon {
+	background-image : url('./magnify-plus.svg'), url('chrome-extension://__MSG_@@extension_id__/magnify-plus.svg');
+}
+
+.galk [data-search-op='exclude'] .galk-toggleSchBtn > .galk-btnIcon {
+	background-image : url('./minus.svg'), url('chrome-extension://__MSG_@@extension_id__/minus.svg');
+}
+
+.galk .galk-wikiBtn > .galk-btnIcon {
+	background-image : url('./book-open-variant.svg'), url('chrome-extension://__MSG_@@extension_id__/book-open-variant.svg');
+}
+
+.galk .galk-refreshBtn > .galk-btnIcon {
+	background-image : url('./refresh.svg'), url('chrome-extension://__MSG_@@extension_id__/refresh.svg');
+}
+
+.galk .galk-invisBtn > .galk-btnIcon {
+	background-image : url('./invisible.svg'), url('chrome-extension://__MSG_@@extension_id__/invisible.svg');
+}
+
+.galk .galk-expandBtn > .galk-btnIcon {
+	background-image : url('./expand-horizontal.svg'), url('chrome-extension://__MSG_@@extension_id__/expand-horizontal.svg');
+}
+
+.galk details > summary > .galk-btn > .galk-btnIcon {
+	background-image : url('./chevron-right.svg'), url('chrome-extension://__MSG_@@extension_id__/chevron-right.svg');
+}
+
+.galk details[open] > summary > .galk-btn > .galk-btnIcon {
+	background-image : url('./chevron-down.svg'), url('chrome-extension://__MSG_@@extension_id__/chevron-down.svg');
+}
+
+.galk .galk-loadingBtn > .galk-btnIcon {
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	background-image : none;
+}
+.galk .galk-loadingBtn > .galk-btnIcon::before {
+	/* rotating crescent */
+	content : '';
+	display : block;
+	width : var(--sz-item-h);
+	height : var(--sz-item-h);
+	box-sizing : border-box;
+	border-style : solid;
+	border-radius : 50%;
+	border-width : medium;
+	border-color : var(--cl-highlight-soft);
+	border-top-color : var(--cl-highlight-stronger);
+
+	animation-name : galk-btnSpin;
+	animation-iteration-count : infinite;
+	animation-duration : 0.5s;
+	animation-timing-function : linear;
+}
+
+@keyframes galk-btnSpin {
+	from {transform : rotate(0deg);}
+	to {transform : rotate(360deg);}
+}
+
+/* -------------------------------------------------------------------------- */
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+/* -------------------------------------------------------------------------- */

@@ -1,0 +1,32 @@
+﻿{
+	"description" : "",
+	"manifest_version" : 2,
+	"name" : "Galkomponents",
+	"version" : "2021.1.8",
+	"homepage_url" : "https://github.com/bipface/galkomponents",
+
+	"browser_specific_settings" : {
+		"gecko" : {
+			"id" : "galkomponents@bipface.cf"}},
+
+	"permissions" : [
+		"*://*.donmai.us/*"],
+
+	"web_accessible_resources" : ["*"],
+
+	"content_scripts" : [
+		{
+			"run_at" : "document_idle",
+
+			"matches" : [
+				"*://*.donmai.us/posts/*"],
+
+			"js" : [
+				"webext-content-module-shim.js"],
+
+			"css" : [
+				"./base.css",
+				"./property-sheet-base.css",
+				"./property-sheet-booru.css",
+				"./property-sheet-danbooru.css"]}]
+}

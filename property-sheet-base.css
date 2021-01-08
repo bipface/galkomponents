@@ -1,0 +1,213 @@
+/* -------------------------------------------------------------------------- */
+
+.galk-propertySheet {
+	--sz-edgecolour : 1mm; /* coloured edge on modified property rows */
+	--cl-added : hsl(120, 60%, 65%);
+	--cl-edited : hsl(40, 100%, 50%);
+	--cl-deleted : hsl(0, 80%, 65%);
+}
+
+/* --- unset default element styles --- */
+
+.galk .galk-propList > li {
+	outline : unset;
+}
+
+/* --- base list structure --- */
+
+fieldset.galk-propertySheet {
+	font-family : var(--ff-default);
+}
+
+.galk-propertySheet > header {
+	display : flex;
+	flex-direction : row;
+	min-height : var(--sz-item-h);
+	padding :
+		var(--sz-adj-space-narrow)
+		calc(var(--sz-adj-space-narrow) + var(--sz-edgecolour));
+
+	border-style : solid;
+	border-width : 0;
+	border-image-width : var(--sz-hairline);
+	border-image-slice : 1%;
+	border-image-source : linear-gradient(
+		transparent, var(--cl-highlight-softer));
+	font-family : var(--ff-heading);
+	font-weight : var(--wt-heading-font);
+}
+
+.galk-propertySheet > header > .galk-btnGroup {
+	margin-right : var(--sz-adj-space-narrow);
+}
+
+fieldset.galk-propertySheet,
+.galk-propertySheet > fieldset,
+.galk-propertySheet .galk-propList {
+	display : flex;
+	flex-direction : column;
+}
+
+.galk-propertySheet > header,
+.galk-propertySheet > fieldset {
+	margin-bottom : var(--sz-adj-space-wider);
+}
+
+.galk-propertySheet > fieldset > legend {
+	margin-bottom : var(--sz-adj-space-wide);
+}
+
+.galk-propertySheet > fieldset {
+	border-style : solid;
+	border-width : 0;
+	border-top-width : var(--sz-hairline);
+	border-image-width : var(--sz-hairline);
+	border-image-slice : 1% 0 0 1%; /* top and left */
+	border-image-source : radial-gradient(
+		farthest-side at 0 0,
+		var(--cl-highlight-softer), transparent);
+}
+
+.galk-propertySheet > fieldset > legend {
+	padding-right : var(--sz-adj-space-wide);
+	font-weight : var(--wt-heading-font);
+	font-family : var(--ff-heading);
+}
+
+.galk-propertySheet .galk-propList > li {
+	position : relative; /* allows interaction with overflowing contents */
+	min-height : var(--sz-item-h);
+	padding-left : var(--sz-adj-space-narrow);
+	border-left : var(--sz-edgecolour) solid transparent;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+}
+
+.galk-propertySheet .galk-propList > li:focus-within {
+	background-color : var(--cl-highlight-softer);
+	border-left-color : var(--cl-panel-bg-medium);
+}
+
+.galk-propertySheet .galk-propList > li[data-status='added'] {
+	border-left-color : var(--cl-added);
+}
+
+.galk-propertySheet .galk-propList > li[data-status='edited'] {
+	border-left-color : var(--cl-edited);
+}
+
+.galk-propertySheet .galk-propList > li[data-status='deleted'] {
+	border-left-color : var(--cl-deleted);
+}
+
+.galk-propertySheet > fieldset > legend,
+.galk-propertySheet .galk-addPropInput {
+	margin-left : calc(var(--sz-edgecolour) + var(--sz-adj-space-narrow));
+}
+
+.galk-propertySheet .galk-addPropInput {
+	display : flex;
+	flex-direction : row;
+	align-items : stretch;
+	margin-bottom : var(--sz-adj-space-wide);
+}
+
+.galk-propertySheet .galk-legendContent {
+	display : flex;
+	flex-direction : row;
+}
+
+/* --- controls --- */
+
+/* disable 'save'/'reset' buttons when not editing: */
+.galk-propertySheet:not(.galk-editing) > header .galk-saveBtn,
+.galk-propertySheet:not(.galk-editing) > header .galk-resetBtn {
+	opacity : var(--opacity-btn-disabled);
+	pointer-events : none;
+}
+
+.galk-propertySheet .galk-legendContent > .galk-btnGroup {
+	margin-right : var(--sz-adj-space-narrow);
+}
+
+.galk-propertySheet .galk-addPropInput > [role='textbox'] {
+	min-width : 14ch;
+}
+
+.galk-propertySheet .galk-addPropInput > .galk-btn {
+	margin-right : var(--sz-adj-space-narrow);
+}
+
+.galk-propertySheet .galk-addPropInput > .galk-btn > .galk-btnLabel {
+	display : none;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+/* -------------------------------------------------------------------------- */
