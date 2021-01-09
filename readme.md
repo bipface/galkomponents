@@ -123,8 +123,6 @@ the minus (`-`) operator (e.g. `-pool:1`).
 
 - `embedded:` metatag sometimes returns an error message upon submit.
 
-- Licence (considering icon images).
-
 # Future plans
 
 - Upload page.
@@ -142,6 +140,10 @@ the minus (`-`) operator (e.g. `-pool:1`).
 - e621, Gelbooru, …
 
 - (todo: fill out this list)
+
+# Attribution
+
+Icon files (SVG) are taken from the [Material Design Icons](https://materialdesignicons.com/) collection.
 
 [demo tagging a]: https://i.imgur.com/iamexoR.gif
 [demo tagging b]: https://i.imgur.com/fC0PkhU.gif
