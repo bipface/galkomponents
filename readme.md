@@ -71,7 +71,7 @@ Add-ons installed in this manner will remain installed until the browser is clos
 
 Key | Action
 :---: | ---
-`shift+enter` | Toggle side-panel
+`shift+space` | Toggle side-panel
 `tab`/`shift+tab` | Navigate properties
 `↑`/`↓` | Navigate autocomplete
 `ctrl+enter` | Submit
