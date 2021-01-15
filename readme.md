@@ -1,4 +1,4 @@
-﻿Galkomponents — UI components for galleries.
+Galkomponents — UI components for galleries.
 
 Currently only one component is implemented: the *Property Sheet*.
 
@@ -43,7 +43,9 @@ from https://github.com/bipface/galkomponents/releases
 
 ## Chrome
 
-- Download the codebase.
+- Download the codebase `galkomponents-{VERSION}.zip`
+from https://github.com/bipface/galkomponents/releases
+and extract it to a new directory.
 
 - Go to `chrome://extensions`.
 
