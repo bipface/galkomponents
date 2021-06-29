@@ -1581,7 +1581,10 @@ function bitTrieElevateBranchInto(branch, dest, bit) {
 	dest.branchBmp = ~bit;
 	dest.subs.length = 2;
 
+	dest.subs[1] = branch;
 	dest.subs[0] = bitTrieExtractFirstEntry(branch, dest, bit, 1);
+
+	dbg && bitTrieAssertBranch(dest);
 };
 
 function bitTrieExtractFirstEntry(branch, parent, bitP, iP) {

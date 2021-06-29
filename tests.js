@@ -111,6 +111,7 @@ export function operateSortedSetDeleteFromRoot() {
 };
 
 export function operateSortedSetSomething() {
+	// todo: remember which code-path this tests
 	let utf8Enc = new TextEncoder();
 	let keyFor = (s) => utf8Enc.encode(s);
 	let m = common.createSortedSet();
@@ -170,6 +171,62 @@ export function bitTrieElevateBranchInto() {
 	assert(branch.subs[1].subs[1] === `shiny_hair`);
 };
 
+export function operateSortedSetElevateBranchWithoutCollapsing() {
+	/* test the code path where deleting a key leads to elevating
+	a branch which itself contains three or more keys in its sub-tree */
+
+	let utf8Enc = new TextEncoder();
+	let keyFor = (s) => utf8Enc.encode(s);
+
+	let m = common.createSortedSet();
+	let arr = []; /* reference array */
+
+	testSortedSetInsertKeys(m, arr, [
+		`horoyuki_(gumizoku)`,
+		`azur_lane`,
+		`aylwin_(azur_lane)`,
+		`ribbed_sweater`,
+		`sweater`,
+		`tsurime`,
+		`turtleneck_leotard`,
+		`highres`,
+		`1girl`,
+		`bangs`,
+		`blush`,
+		`breasts`,
+		`covered_navel`,
+		`eyebrows_visible_through_hair`,
+		`hair_between_eyes`,
+		`hat`,
+		`headband`,
+		`plump`,
+		`red_eyes`,
+		`medium_hair`,].map(keyFor));
+
+	/* delete 'medium_hair'; this will invoke `bitTrieElevateBranchInto`,
+	but `dest.subs[1]` will remain as `branch`,
+	leaving `dest` with subs `[leaf, branch]`: */
+	common.operateSortedSet(m, {
+		operate : () => undefined,
+		atKey : keyFor(`medium_hair`),
+		keyFor : x => x,});
+
+	arrayDeleteKey(arr, keyFor(`medium_hair`));
+
+	assertSortedSetEquivArray(m, arr);
+
+	/* insert 'medium_hair' */
+	common.operateSortedSet(m, {
+		operate : () => keyFor(`medium_hair`),
+		atKey : keyFor(`medium_hair`),
+		keyFor : x => x,});
+
+	arrayUpsertKey(arr, keyFor(`medium_hair`));
+	arr.sort(compareArrays);
+
+	assertSortedSetEquivArray(m, arr);
+};
+
 function testSortedSetInsertKeys(m, arr /* reference array */, keys) {
 	let keyFor = x => {
 		dbg && assert(x instanceof Uint8Array);
@@ -190,12 +247,7 @@ function testSortedSetInsertKeys(m, arr /* reference array */, keys) {
 	};
 
 	arr.sort(compareArrays);
-
-	let i = 0;
-	for (let x of common.iterateSortedSet(m)) {
-		assert(compareArrays(x, arr[i]) === 0);
-		++i;
-	};
+	assertSortedSetEquivArray(m, arr);
 };
 
 function testSortedSetDeleteKeys(m, arr /* reference array */, keys) {
@@ -217,7 +269,11 @@ function testSortedSetDeleteKeys(m, arr /* reference array */, keys) {
 	};
 
 	arr.sort(compareArrays);
+	assertSortedSetEquivArray(m, arr);
+};
 
+function assertSortedSetEquivArray(m, arr) {
+	/* assumes `arr` is sorted and has no duplicates */
 	let i = 0;
 	for (let x of common.iterateSortedSet(m)) {
 		assert(compareArrays(x, arr[i]) === 0);

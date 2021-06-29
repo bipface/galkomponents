@@ -1,12 +1,26 @@
 /* -------------------------------------------------------------------------- */
 
 .galk {
-	--cl-highlight-softer : hsla(237, 25%, 65%, 0.32);
-	--cl-highlight-soft : hsla(237, 25%, 65%, 0.28);
-	--cl-highlight-medium : hsla(236.8, 9.8%, 62.2%, 65%);
-	--cl-panel-bg : var(--grey-3);
-	--cl-panel-bg-medium : hsl(237, 12%, 38%);
+	--cl-highlight-softer : var(--grey-7); /*hsla(237, 25%, 65%, 0.32);*/
+	--cl-highlight-soft : var(--grey-7); /*hsla(237, 25%, 65%, 0.28);*/
+	--cl-highlight-medium : var(--grey-5); /*var(--grey-4);*/ /*hsla(236.8, 9.8%, 62.2%, 65%);*/
+	--cl-panel-bg : var(--grey-8);
+	--cl-panel-bg-medium : var(--grey-6); /*hsl(237, 12%, 38%);*/
+
 	--cl-text-soft : var(--tag-count-color);
+	--cl-link : var(--link-color);
+	--cl-link-highlight : var(--link-hover-color);
+
+	--cl-copyright-tag : var(--copyright-tag-color);
+	--cl-copyright-tag-highlight : var(--copyright-tag-hover-color);
+	--cl-character-tag : var(--character-tag-color);
+	--cl-character-tag-highlight : var(--character-tag-hover-color);
+	--cl-artist-tag : var(--artist-tag-color);
+	--cl-artist-tag-highlight : var(--artist-tag-hover-color);
+	--cl-meta-tag : var(--meta-tag-color);
+	--cl-meta-tag-highlight : var(--meta-tag-hover-color);
+	--cl-general-tag : var(--general-tag-color);
+	--cl-general-tag-highlight : var(--general-tag-hover-color);
 }
 
 /* --- unset danbooru's default element styles --- */
@@ -31,10 +45,6 @@ fieldset.galk-propertySheetDeck-booru {
 	max-width : stretch;
 	max-width : -moz-available;
 	max-width : -webkit-fill-available;
-}
-
-.galk-propertySheet .galk-propList > li:focus-within {
-	background-color : var(--grey-2);
 }
 
 .galk-propertySheet-booru .galk-propList

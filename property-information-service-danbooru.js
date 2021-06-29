@@ -24,7 +24,7 @@ const tagCategories = [
 
 // todo: config
 const reqCachePeriods = {/* units suitable for the 'expires_in' parameter */
-	autocomplete : `60mi`, /* rarely changes */
+	// autocomplete : `60mi`, // unused; see `getPropAutocompleteHref`
 	summary : `5mi`, /* occasional; pages can be edited at any moment */
 	userRelatedProps : `5mi`, /* dynamic */
 	propRelatives : `20mi`, /* occasionally changes */
@@ -525,11 +525,16 @@ function getPropAutocompleteHref(kind, partial) {
 
 	let url = new URL(`http://_/autocomplete.json`);
 	let s = url.searchParams;
-	s.set(`limit`, `10`); // todo: config
-	//s.set(`only`, `value,post_count,category,antecedent`); // danbooru bug #4240
-	s.set(`expires_in`, reqCachePeriods.autocomplete);
+
+	/* to avoid cloudflare cache misses, params must be exactly as follows,
+	in this order: */
 	s.set(`search[query]`, partial);
-	s.set(`search[type]`, `tag`);
+	s.set(`search[type]`, `tag_query`);
+	s.set(`limit`, `10`); // todo: config; though see above
+
+	// excluded to avoid cloudflare cache misses:
+	//s.set(`expires_in`, reqCachePeriods.autocomplete);
+	//s.set(`only`, `value,post_count,category,antecedent`); // danbooru bug #4240
 
 	return url.pathname+url.search; /* relative */
 };
@@ -1184,6 +1189,9 @@ function httpGetInternal(
 
 	dbg && log.debug(`opening GET request`, {href});
 	req.open(`GET`, href);
+
+	if (responseType === `json`) {
+		req.setRequestHeader(`accept`, `application/json`);}
 
 	if (!fromSvr) {
 		req.setRequestHeader(`cache-control`, `only-if-cached`);};

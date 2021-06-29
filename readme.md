@@ -1,4 +1,4 @@
-Galkomponents — UI components for galleries.
+﻿Galkomponents — UI components for galleries.
 
 Currently only one component is implemented: the *Property Sheet*.
 
@@ -82,6 +82,8 @@ Key | Action
 - Source links need `rel='external noreferrer nofollow'`.
 
 - Untested with the site's 'light' theme.
+
+- Untested on mobile browsers.
 
 - Metatag parsing isn't precise; e.g. `type:_null` is treated as a metatag.
 
