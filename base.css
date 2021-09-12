@@ -329,91 +329,91 @@ fieldset.galk, .galk fieldset {
 /* --- icons --- */
 
 .galk .galk-btn > .galk-btnIcon {
-	background-image : url('./checkbox-blank.svg'), url('chrome-extension://__MSG_@@extension_id__/checkbox-blank.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/checkbox-blank.svg'), url('chrome-extension://__MSG_@@extension_id__/checkbox-blank.svg');
 }
 
 .galk .galk-addBtn > .galk-btnIcon {
-	background-image : url('./plus.svg'), url('chrome-extension://__MSG_@@extension_id__/plus.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/plus.svg'), url('chrome-extension://__MSG_@@extension_id__/plus.svg');
 }
 
 .galk .galk-saveBtn > .galk-btnIcon {
-	background-image : url('./content-save.svg'), url('chrome-extension://__MSG_@@extension_id__/content-save.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/content-save.svg'), url('chrome-extension://__MSG_@@extension_id__/content-save.svg');
 }
 
 .galk .galk-copyBtn > .galk-btnIcon {
-	background-image : url('./content-copy.svg'), url('chrome-extension://__MSG_@@extension_id__/content-copy.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/content-copy.svg'), url('chrome-extension://__MSG_@@extension_id__/content-copy.svg');
 }
 
 .galk .galk-configBtn > .galk-btnIcon {
-	background-image : url('./settings.svg'), url('chrome-extension://__MSG_@@extension_id__/settings.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/settings.svg'), url('chrome-extension://__MSG_@@extension_id__/settings.svg');
 	background-size : calc(var(--sz-item-h) * 0.85);
 }
 
 .galk .galk-helpBtn > .galk-btnIcon {
-	background-image : url('./help-circle.svg'), url('chrome-extension://__MSG_@@extension_id__/help-circle.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/help-circle.svg'), url('chrome-extension://__MSG_@@extension_id__/help-circle.svg');
 	background-size : calc(var(--sz-item-h) * 0.85);
 }
 
 .galk .galk-menuBtn > .galk-btnIcon {
-	background-image : url('./dots-horizontal.svg'), url('chrome-extension://__MSG_@@extension_id__/dots-horizontal.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/dots-horizontal.svg'), url('chrome-extension://__MSG_@@extension_id__/dots-horizontal.svg');
 }
 
 .galk .galk-selectBtn > .galk-btnIcon {
-	background-image : url('./selection.svg'), url('chrome-extension://__MSG_@@extension_id__/selection.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/selection.svg'), url('chrome-extension://__MSG_@@extension_id__/selection.svg');
 	background-size : calc(var(--sz-item-h) * 0.8);
 }
 
 .galk .galk-resetBtn > .galk-btnIcon {
-	background-image : url('./undo.svg'), url('chrome-extension://__MSG_@@extension_id__/undo.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/undo.svg'), url('chrome-extension://__MSG_@@extension_id__/undo.svg');
 }
 
 .galk .galk-deleteBtn > .galk-btnIcon,
 .galk .galk-closeBtn > .galk-btnIcon {
-	background-image : url('./close.svg'), url('chrome-extension://__MSG_@@extension_id__/close.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/close.svg'), url('chrome-extension://__MSG_@@extension_id__/close.svg');
 }
 
 .galk .galk-editBtn > .galk-btnIcon {
-	background-image : url('./pencil.svg'), url('chrome-extension://__MSG_@@extension_id__/pencil.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/pencil.svg'), url('chrome-extension://__MSG_@@extension_id__/pencil.svg');
 }
 
 .galk .galk-gotoLinkBtn > .galk-btnIcon {
-	background-image : url('./link.svg'), url('chrome-extension://__MSG_@@extension_id__/link.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/link.svg'), url('chrome-extension://__MSG_@@extension_id__/link.svg');
 }
 
 .galk .galk-toggleSchBtn > .galk-btnIcon {
-	background-image : url('./magnify.svg'), url('chrome-extension://__MSG_@@extension_id__/magnify.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/magnify.svg'), url('chrome-extension://__MSG_@@extension_id__/magnify.svg');
 }
 
 .galk [data-search-op=''] .galk-toggleSchBtn > .galk-btnIcon {
-	background-image : url('./magnify-plus.svg'), url('chrome-extension://__MSG_@@extension_id__/magnify-plus.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/magnify-plus.svg'), url('chrome-extension://__MSG_@@extension_id__/magnify-plus.svg');
 }
 
 .galk [data-search-op='exclude'] .galk-toggleSchBtn > .galk-btnIcon {
-	background-image : url('./minus.svg'), url('chrome-extension://__MSG_@@extension_id__/minus.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/minus.svg'), url('chrome-extension://__MSG_@@extension_id__/minus.svg');
 }
 
 .galk .galk-wikiBtn > .galk-btnIcon {
-	background-image : url('./book-open-variant.svg'), url('chrome-extension://__MSG_@@extension_id__/book-open-variant.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/book-open-variant.svg'), url('chrome-extension://__MSG_@@extension_id__/book-open-variant.svg');
 }
 
 .galk .galk-refreshBtn > .galk-btnIcon {
-	background-image : url('./refresh.svg'), url('chrome-extension://__MSG_@@extension_id__/refresh.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/refresh.svg'), url('chrome-extension://__MSG_@@extension_id__/refresh.svg');
 }
 
 .galk .galk-invisBtn > .galk-btnIcon {
-	background-image : url('./invisible.svg'), url('chrome-extension://__MSG_@@extension_id__/invisible.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/invisible.svg'), url('chrome-extension://__MSG_@@extension_id__/invisible.svg');
 }
 
 .galk .galk-expandBtn > .galk-btnIcon {
-	background-image : url('./expand-horizontal.svg'), url('chrome-extension://__MSG_@@extension_id__/expand-horizontal.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/expand-horizontal.svg'), url('chrome-extension://__MSG_@@extension_id__/expand-horizontal.svg');
 }
 
 .galk details > summary > .galk-btn > .galk-btnIcon {
-	background-image : url('./chevron-right.svg'), url('chrome-extension://__MSG_@@extension_id__/chevron-right.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/chevron-right.svg'), url('chrome-extension://__MSG_@@extension_id__/chevron-right.svg');
 }
 
 .galk details[open] > summary > .galk-btn > .galk-btnIcon {
-	background-image : url('./chevron-down.svg'), url('chrome-extension://__MSG_@@extension_id__/chevron-down.svg');
+	background-image : url('moz-extension://__MSG_@@extension_id__/chevron-down.svg'), url('chrome-extension://__MSG_@@extension_id__/chevron-down.svg');
 }
 
 .galk .galk-loadingBtn > .galk-btnIcon {

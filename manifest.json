@@ -2,7 +2,7 @@
 	"description" : "",
 	"manifest_version" : 2,
 	"name" : "Galkomponents",
-	"version" : "2021.6.8",
+	"version" : "2021.9.12",
 	"homepage_url" : "https://github.com/bipface/galkomponents",
 
 	"browser_specific_settings" : {

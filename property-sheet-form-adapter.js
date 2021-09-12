@@ -149,7 +149,10 @@ export function bindForm(psRoot, formEl) {
 	let tagsField = findFieldById(formEl, `post_tag_string`);
 	let sourceField = findFieldById(formEl, `post_source`);
 	let parentField = findFieldById(formEl, `post_parent_id`);
-	let embedModeBtn = findFieldById(formEl, `post_has_embedded_notes`);
+
+	// the `embedded:` metatag isn't currently recognised by danbooru
+	let embedModeBtn = null; //findFieldById(formEl, `post_has_embedded_notes`);
+
 	let ratingBtns = [
 		findFieldById(formEl, `post_rating_s`),
 		findFieldById(formEl, `post_rating_q`),

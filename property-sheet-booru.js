@@ -2474,7 +2474,7 @@ function assignAutocmplPanel(panel, {
 
 function onAutocmpltResults(
 	/* bound: */ root, propInfoSvc,
-	/* event: */ {detail : {kind, partial, results}})
+	/* event: */ {detail : {kind, partial /* normalised */, results}})
 {
 	dbg && assert.objOrNull(propInfoSvc);
 	dbg && assert.str(partial);
@@ -2484,7 +2484,13 @@ function onAutocmpltResults(
 	let {autocmplPanel} = dom.getRefs(sidePanel);
 
 	let {dataset} = autocmplPanel;
-	if (dataset.kind !== kind || dataset.partial !== partial) {
+
+	// todo: improve this logic
+	let norm = kind === `` && dataset.partial
+		? tagExpression.normaliseTag(dataset.partial)
+		: dataset.partial;
+
+	if (dataset.kind !== kind || norm !== partial) {
 		/* these results aren't for the current partial */
 		return;
 	};
@@ -2567,7 +2573,7 @@ function assignSummaryPanel(panel, {
 
 function onPropSummaryRetrieved(
 	/* bound: */ root, propInfoSvc,
-	/* event: */ {detail : {kind, value, summary}})
+	/* event: */ {detail : {kind, value /* normalised */, summary}})
 {
 	dbg && assert.objOrNull(propInfoSvc);
 	dbg && assert.str(value);
@@ -2577,7 +2583,12 @@ function onPropSummaryRetrieved(
 	let {summaryPanel} = dom.getRefs(sidePanel);
 
 	let {dataset} = summaryPanel;
-	if (dataset.kind !== kind || dataset.value !== value) {
+	// todo: improve this logic
+	let norm = kind === `` && dataset.value
+		? tagExpression.normaliseTag(dataset.value)
+		: dataset.value;
+
+	if (dataset.kind !== kind || norm !== value) {
 		/* this result isn't for the current property */
 		return;
 	};

@@ -55,10 +55,6 @@ fieldset.galk-propertySheet-booru {
 	display : none;
 }
 
-.galk-propertySheet-booru .galk-optionBtns .galk-btnLabel {
-	width : 7mm;
-}
-
 .galk-propertySheet-booru.galk-editing .galk-propCtrls .galk-editBtn {
 	display : none;
 }
@@ -311,13 +307,14 @@ fieldset.galk-propertySheet-booru {
 .galk-propertySheet-booru .galk-propList
 	> li[data-kind]:not([data-kind='']):not([data-kind='source'])::before
 {
+	height : 100%;
 	content : attr(data-kind) ':';
 	float : left;
 	display : flex;
 	align-items : center;
 	justify-content : end;
 	margin-right : var(--sz-adj-space-wide);
-	width : 12ch;
+	width : 7ch; /* previously 12ch, to cater for `embedded:` */
 	font-size : var(--sz-minor-font);
 }
 

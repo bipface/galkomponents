@@ -4,9 +4,9 @@
 
 import * as tagExpression from './tag-expression.js';
 import * as formAdapter from './property-sheet-form-adapter.js';
+import * as propInfoSvc from './property-information-service-danbooru.js';
 import * as common from './common.js';
 const {
-	dbg,
 	assert,
 	log,
 	compareArrays,} = common;
@@ -37,7 +37,7 @@ export function runAll() {
 
 /* -------------------------------------------------------------------------- */
 
-/* --- sorted map --- */
+/* --- sorted set --- */
 
 export function createSortedSet() {
 	let m = common.createSortedSet();
@@ -229,7 +229,7 @@ export function operateSortedSetElevateBranchWithoutCollapsing() {
 
 function testSortedSetInsertKeys(m, arr /* reference array */, keys) {
 	let keyFor = x => {
-		dbg && assert(x instanceof Uint8Array);
+		assert(x instanceof Uint8Array);
 		return x;
 	};
 
@@ -252,7 +252,7 @@ function testSortedSetInsertKeys(m, arr /* reference array */, keys) {
 
 function testSortedSetDeleteKeys(m, arr /* reference array */, keys) {
 	let keyFor = x => {
-		dbg && assert(x instanceof Uint8Array);
+		assert(x instanceof Uint8Array);
 		return x;
 	};
 
@@ -581,7 +581,7 @@ function metatagXprTerm(kind, value, beginIndex, endIndex, rest = {}) {
 };
 
 function assertTagXprTerms(s, ...xs) {
-	dbg && assert.arr(xs);
+	assert.arr(xs);
 
 	let i = 0;
 	for (let value, iter = tagExpression.parseTerms(s)[Symbol.iterator]();
@@ -589,24 +589,102 @@ function assertTagXprTerms(s, ...xs) {
 		++i)
 	{
 		let expect = xs[i];
-		dbg && assert.obj(expect);
-		dbg && assert.obj(value);
+		assert.obj(expect);
+		assert.obj(value);
 
-		dbg && assert.str(value.op);
-		dbg && assert(value.op === (expect.op || ``));
-		dbg && assert.str(value.kind);
-		dbg && assert(value.kind === (expect.kind || ``));
-		dbg && assert.str(value.value);
-		dbg && assert(value.value === (expect.value || ``));
-		dbg && assert.bool(value.hasWildcard);
-		dbg && assert(value.hasWildcard === !!(expect.hasWildcard));
-		dbg && assert.uint31(value.beginIndex);
-		dbg && assert(value.beginIndex === expect.beginIndex);
-		dbg && assert.uint31(value.endIndex);
-		dbg && assert(value.endIndex === expect.endIndex);
+		assert.str(value.op);
+		assert(value.op === (expect.op || ``));
+		assert.str(value.kind);
+		assert(value.kind === (expect.kind || ``));
+		assert.str(value.value);
+		assert(value.value === (expect.value || ``));
+		assert.bool(value.hasWildcard);
+		assert(value.hasWildcard === !!(expect.hasWildcard));
+		assert.uint31(value.beginIndex);
+		assert(value.beginIndex === expect.beginIndex);
+		assert.uint31(value.endIndex);
+		assert(value.endIndex === expect.endIndex);
 	};
 
-	dbg && assert(i === xs.length);
+	assert(i === xs.length);
+};
+
+/* --- prop info svc --- */
+
+export function getPropWikiPageHrefForSource() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : `source`, value : `asdf`})
+		=== `/wiki_pages/help:image_source`);
+};
+
+export function getPropWikiPageHrefForParent() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : `parent`, value : `111`})
+		=== `/wiki_pages/help:post_relationships`);
+};
+
+export function getPropWikiPageHrefForRating() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : `rating`, value : `q`})
+		=== `/wiki_pages/howto:rate`);
+};
+
+export function getPropWikiPageHrefForTag() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : ``, value : `blush`})
+		=== `/wiki_pages/blush`);
+};
+
+export function getPropWikiPageHrefForTagWithOp() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : ``, value : `pig`, op : `-`})
+		=== `/wiki_pages/pig`);
+};
+
+export function getPropWikiPageHrefForTagWithMixedCase() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : ``, value : `BlUsH`})
+		=== `/wiki_pages/blush`);
+};
+
+export function getPropWikiPageHrefForTagWithSymbols() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : ``, value : `blu/sh`})
+		=== `/wiki_pages/blu%2Fsh`);
+};
+
+export function getPropWikiPageHrefForTagWithInvalidChars() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : ``, value : `blu\nsh`})
+		=== undefined);
+};
+
+export function getPropWikiPageHrefForUnrecognised() {
+	assert(propInfoSvc.getPropWikiPageHref({kind : `asdf`, value : `asdf`})
+		=== undefined);
+};
+
+export function getPropGotoHrefForParent() {
+	assert(propInfoSvc.getPropGotoHref({kind : `parent`, value : `111`})
+		=== `/posts?tags=parent%3A111`);
+};
+
+export function getPropGotoHrefForParentWithInvalidDigits() {
+	assert(propInfoSvc.getPropGotoHref({kind : `parent`, value : `1a11`})
+		=== undefined);
+};
+
+export function getPropGotoHrefForSourceWithInvalidHref() {
+	assert(propInfoSvc.getPropGotoHref({kind : `source`, value : `!@#$%^&*`})
+		=== undefined);
+};
+
+export function getPropGotoHrefForSourceWithUnsafeHref() {
+	assert(propInfoSvc.getPropGotoHref(
+		{kind : `source`, value : `somescheme://u:p@hostname/`})
+		=== undefined);
+};
+
+export function getPropGotoHrefForTag() {
+	assert(propInfoSvc.getPropGotoHref({kind : ``, value : `blush`})
+		=== `/posts?tags=blush`);
+};
+
+export function getPropGotoHrefForUnrecognised() {
+	assert(propInfoSvc.getPropGotoHref({kind : `asdf`, value : `asdf`})
+		=== undefined);
 };
 
 /* --- form adapter --- */

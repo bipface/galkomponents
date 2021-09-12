@@ -83,27 +83,9 @@ export function normaliseTerm(t) {
 	dbg && assert.str(value);
 
 	if (kind === `` /* tag */) {
-		/* makes lowercase and replaces invalid characters with u+fffd */
 		let changed = false;
-		let norm = ``;
-		for (let i = 0, n = value.length; i < n;) {
-			let cpt = value.codePointAt(i);
-			if (!common.codePointIsGraphicalAscii(cpt)) {
-				norm += common.replacementChar;
-				changed = true;
-			} else {
-				let ch = value[i];
-				if (common.codePointIsUpperAlpha(cpt)) {
-					norm += ch.toLowerCase();
-					changed = true;
-				} else {
-					norm += ch;
-				};
-			};
-			i += codePointLength(cpt);
-		};
-
-		if (changed) {
+		let norm = normaliseTag(value);
+		if (norm !== value) {
 			return {kind, op, value : norm};};
 		return t;
 
@@ -146,6 +128,26 @@ export function normaliseTerm(t) {
 
 		return t;
 	};
+};
+
+export function normaliseTag(value) {
+	/* makes lowercase and replaces invalid characters with u+fffd */
+	dbg && assert.str(value);
+	let norm = ``;
+	for (let i = 0, n = value.length; i < n;) {
+		let cpt = value.codePointAt(i);
+		if (!common.codePointIsGraphicalAscii(cpt)) {
+			norm += common.replacementChar;
+		} else {
+			let ch = value[i];
+			if (common.codePointIsUpperAlpha(cpt)) {
+				norm += ch.toLowerCase();
+			} else {
+				norm += ch;};
+		};
+		i += codePointLength(cpt);
+	};
+	return norm;
 };
 
 function codePointIsIdentChar(c) {

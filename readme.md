@@ -83,7 +83,7 @@ Key | Action
 
 - Untested with the site's 'light' theme.
 
-- Untested on mobile browsers.
+- Only partially tested on mobile browsers.
 
 - Metatag parsing isn't precise; e.g. `type:_null` is treated as a metatag.
 
@@ -112,8 +112,6 @@ activates the first menu item instead of toggling the menu.
 - After selecting a menu item (using `enter` or `space`),
 the item is highlighted again when the menu is re-opened.
 
-- In Chrome, extraneous network requests for SVG images which don't exist on the server.
-
 - Copying selected properties; feature isn't fully refined and suffers in a number of edge cases.
 
 - 'Unrecognised' section shouldn't be present when empty.
@@ -124,8 +122,6 @@ the item is highlighted again when the menu is re-opened.
 
 - Certain metatags don't behave as expected when used with
 the minus (`-`) operator (e.g. `-pool:1`).
-
-- `embedded:` metatag sometimes returns an error message upon submit.
 
 # Future plans
 

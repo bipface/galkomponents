@@ -115,6 +115,8 @@ export function getPropRelatives(kind, value, category = ``,
 	dbg && assert.str(value);
 	dbg && assert.str(category);
 
+	value = tagExpression.normaliseTag(value); /* lowercase */
+
 	if (fromCache) {
 		let relsMap = cachedTagRelatives[category];
 		if (relsMap !== undefined) {
@@ -439,7 +441,11 @@ export function requestPropAutocompleteValues(kind, partial) {
 	/* only tag autocomplete: */
 	if (kind !== `` /* tag */ || typeof partial !== `string`) {
 		return null;};
+		
+	partial = tagExpression.normaliseTag(partial); /* lowercase */
+
 	requestTagAutocompleteValues(partial);
+
 	return pendingSym;
 };
 
@@ -548,6 +554,8 @@ export function getPropSummary(kind, value,
 	if (kind !== `` /* tag */ || typeof value !== `string`) {
 		return ``;};
 
+	value = tagExpression.normaliseTag(value); /* lowercase */
+
 	if (fromCache) {
 		let s = cachedTagSummaries.get(value);
 		if (s !== undefined) {
@@ -653,6 +661,8 @@ export function getPropAttrs(kind, value,
 
 	/* only tag attrs: */
 	if (kind !== `` /* tag */) {return null;};
+
+	value = tagExpression.normaliseTag(value); /* lowercase */
 
 	if (fromCache) {
 		let attrs = cachedTagAttrs.get(value);
@@ -786,7 +796,9 @@ function abortPendingTagAttrs() {
 export function extractTagAttrsFromList(node) {
 	/* node can be any element which has <li> descendants representing tags;
 	on danbooru this would typically be <section id='tag-list'>;
-	should work with tag lists in all known danbooru and gelbooru variants */
+	should work with tag lists in all known danbooru and gelbooru variants
+
+	doesn't perform normalisation (assumes tags are normalised already) */
 
 	dbg && assert(node instanceof HTMLElement);
 	let doc = node.ownerDocument;
@@ -1064,8 +1076,9 @@ export function getPropGotoHref(term) {
 			if (!isStringAndValidTag(term.value)) {
 				return undefined;};
 
+			let norm = tagExpression.normaliseTag(term.value); /* lowercase */
 			let url = new URL(`http://_/posts`);
-			url.searchParams.set(`tags`, term.value);
+			url.searchParams.set(`tags`, norm);
 
 			return url.pathname+url.search; /* relative */
 		};
@@ -1112,8 +1125,10 @@ export function getPropWikiPageHref(term) {
 			if (!isStringAndValidTag(term.value)) {
 				return undefined;};
 
+			let norm = tagExpression.normaliseTag(term.value); /* lowercase */
+
 			url = new URL(
-				`http://_/wiki_pages/${encodeURIComponent(term.value)}`);
+				`http://_/wiki_pages/${encodeURIComponent(norm)}`);
 			break;
 
 		default : return undefined;
